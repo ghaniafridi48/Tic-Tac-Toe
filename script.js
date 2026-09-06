@@ -14,7 +14,12 @@ let createPlayer = (name,marker) => {
         marker : marker,
 
         fillarr (index) {
-            Gameboard.gameboard[index] = this.marker;
+            if (Gameboard.gameboard[index] !== undefined ) {
+                console.log('this position already has a marker');
+            }else{
+                Gameboard.gameboard[index] = this.marker;
+            }
+
         }
     };
 
@@ -35,7 +40,7 @@ let flow = {
                     return true;
                 }
             }
-        return fasle
+        return false
     }  
 }
 
