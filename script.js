@@ -1,5 +1,14 @@
+let player1;
+
+const playerBtn = document.getElementById('playerBtn');
+        playerBtn.addEventListener('click' , () => {
+           let userName = prompt('Name : ');
+           let userMarker = prompt('marker : ');
+           player1 = createPlayer(userName,userMarker);
+        })
+        
 let Gameboard = (function(){
-    let board = [];
+    let board = ["","","","","","","","",""];
 
     return {
         gameboard : board
@@ -14,7 +23,7 @@ let createPlayer = (name,marker) => {
         marker : marker,
 
         fillarr (index) {
-            if (Gameboard.gameboard[index] !== undefined ) {
+            if (Gameboard.gameboard[index] !== "" ) {
                 console.log('this position already has a marker');
             }else{
                 Gameboard.gameboard[index] = this.marker;
@@ -36,21 +45,29 @@ let flow = {
                 let secondPos = Gameboard.gameboard[combo[1]]
                 let thirdPos = Gameboard.gameboard[combo[2]] 
                 
-                if(firstPos !== undefined && firstPos === secondPos && secondPos === thirdPos){
+                if(firstPos !== "" && firstPos === secondPos && secondPos === thirdPos){
                     return true;
                 }
             }
-        return false
+        return false;
     }  
 }
 
-const player1 =  createPlayer('me','x');
-player1.fillarr(0);
-player1.fillarr(1);
-player1.fillarr(2);
+const display = {
 
-const player2 = createPlayer('opponenet','o');
-player2.fillarr(5);
+    display(){
+        const cell = document.querySelectorAll('.cell');
+        cell.forEach((singleCell) => {
+            singleCell.addEventListener("click", () =>{
 
-console.log(Gameboard.gameboard);
-console.log(flow.checkwin());
+            player1.fillarr(singleCell.dataset.index);
+            flow.checkwin();
+            singleCell.textContent = Gameboard.gameboard[singleCell.dataset.index];
+
+        })
+    }) 
+}
+}
+
+display.display();
+
