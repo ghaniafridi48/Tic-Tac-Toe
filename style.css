@@ -13,6 +13,7 @@ body{
 }
 
 .container{
+    margin: 5px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -24,6 +25,7 @@ body{
 }
 .container .cell{
     height: 33.3%;
+    width: 33.3%;
     outline: 1px solid red;
     display: flex;
     justify-content: center;

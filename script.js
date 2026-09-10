@@ -13,6 +13,7 @@ const playerBtn = document.getElementById('playerBtn');
             player2 = createPlayer(userName2, userMarker2);
 
             currentplayer = player1;
+            message.textContent = `${currentplayer.name}'s turn`; 
 
         })
         
@@ -59,7 +60,8 @@ let flow = {
                 let thirdPos = Gameboard.getBoard()[combo[2]] 
                 
                 if(firstPos !== "" && firstPos === secondPos && secondPos === thirdPos){
-                    document.getElementById('message').textContent = `${currentplayer.name} wins!`;
+                    let message = document.getElementById('message');
+                    message.textContent  = `\n${currentplayer.name} wins!`;
 
                 }
             }
@@ -80,6 +82,8 @@ const display = {
                      flow.checkwin();
                      
                      (currentplayer === player1) ? currentplayer = player2 : currentplayer = player1;
+                     message.textContent = `${currentplayer.name}'s turn`; 
+
                      
                     }
                     })
