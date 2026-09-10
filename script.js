@@ -13,7 +13,7 @@ const playerBtn = document.getElementById('playerBtn');
             player2 = createPlayer(userName2, userMarker2);
 
             currentplayer = player1;
-            message.textContent = `${currentplayer.name}'s turn`; 
+           document.getElementById('turn').textContent = `${currentplayer.name}'s turn`; 
 
         })
         
@@ -61,8 +61,8 @@ let flow = {
                 
                 if(firstPos !== "" && firstPos === secondPos && secondPos === thirdPos){
                     let message = document.getElementById('message');
-                    message.textContent  = `\n${currentplayer.name} wins!`;
-
+                    message.textContent  = `${currentplayer.name} wins!`;
+                    return true;
                 }
             }
     }  
@@ -74,20 +74,26 @@ const display = {
         const cell = document.querySelectorAll('.cell');
         cell.forEach((singleCell) => {
             singleCell.addEventListener("click", () =>{
-                 if (Gameboard.getBoard()[singleCell.dataset.index] === "" ) {
-                     
-                     Gameboard.setMarker(singleCell.dataset.index , currentplayer.marker);
-                     singleCell.textContent = Gameboard.getBoard()[singleCell.dataset.index];
+                    if (!currentplayer) return;
+                    if (Gameboard.getBoard()[singleCell.dataset.index] === "") {
+        
+                    Gameboard.setMarker(singleCell.dataset.index, currentplayer.marker);
+                    singleCell.textContent = Gameboard.getBoard()[singleCell.dataset.index];
 
-                     flow.checkwin();
-                     
-                     (currentplayer === player1) ? currentplayer = player2 : currentplayer = player1;
-                     message.textContent = `${currentplayer.name}'s turn`; 
 
-                     
+                    if (flow.checkwin()) {
+                        
+                    } else if (!Gameboard.getBoard().includes("")) {
+                        document.getElementById('message').textContent = "It's a tie game!";
+                        document.getElementById('turn').textContent = ""; 
+                        
+                    } else {
+                        (currentplayer === player1) ? currentplayer = player2 : currentplayer = player1;
+                        document.getElementById('turn').textContent = `${currentplayer.name}'s turn`; 
                     }
-                    })
-                }) 
-            }
+                }
+                })
+            }) 
+        }
 }
 display.display();
