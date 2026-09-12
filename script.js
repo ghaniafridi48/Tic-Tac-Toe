@@ -3,19 +3,40 @@ let player2;
 let currentplayer;
 
 const playerBtn = document.getElementById('playerBtn');
-        playerBtn.addEventListener('click' , () => {
-            let userName1 = prompt('Player 1 Name: ');
-            let userMarker1 = prompt('Player 1 Marker (X or O): ');
-            player1 = createPlayer(userName1, userMarker1);
+    playerBtn.addEventListener('click' , () => {
 
-            let userName2 = prompt('Player 2 Name: ');
-            let userMarker2 = prompt('Player 2 Marker (X or O): ');
-            player2 = createPlayer(userName2, userMarker2);
+    let userName1 = prompt('Player 1 Name: ');
+    let userMarker1 = prompt('Player 1 Marker (X or O): ');
+    player1 = createPlayer(userName1, userMarker1);
 
-            currentplayer = player1;
-           document.getElementById('turn').textContent = `${currentplayer.name}'s turn`; 
+    let userName2 = prompt('Player 2 Name: ');
+    let userMarker2 = prompt('Player 2 Marker (X or O): ');
+    player2 = createPlayer(userName2, userMarker2);
 
-        })
+    currentplayer = player1;
+    document.getElementById('turn').textContent = `${currentplayer.name}'s turn`; 
+
+})
+
+const reset = document.getElementById('reset');
+reset.addEventListener("click",() => {
+    Gameboard.resetBoard();
+
+    const cell = document.querySelectorAll('.cell');
+    cell.forEach((singleCell) => {
+        singleCell.textContent = '';
+    })
+
+    document.getElementById('message').textContent = "";
+    
+    if (player1) {
+        currentplayer = player1;
+        document.getElementById('turn').textContent = `${currentplayer.name}'s turn`;
+    } else {
+        document.getElementById('turn').textContent = "";
+    }
+});
+
         
 let Gameboard = (function(){
         let board = ["","","","","","","","",""];
